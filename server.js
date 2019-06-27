@@ -24,8 +24,8 @@ app.get('/api/v1/constellations', (req, res) => {
 
 app.get('/api/v1/constellations/:id', (req, res) => {
   database('constellations').where('id', req.params.id).select()
-    .then((constellation) => {
-      constellation ? res.status(200).json(constellation)
+    .then((constellations) => {
+      constellations.length ? res.status(200).json(constellations)
         : res.status(404).json({ error: 'No constellation data exists for that id.' })
     })
     .catch((error) => res.status(500).json({ error }));
@@ -42,8 +42,8 @@ app.get('/api/v1/stars', (req, res) => {
 
 app.get('/api/v1/stars/:id', (req, res) => {
   database('stars').where('id', req.params.id).select()
-    .then((star) => {
-      star ? res.status(200).json(star)
+    .then((stars) => {
+      stars.length ? res.status(200).json(stars)
         : res.status(404).json({ error: 'No star data exists for that id.' })
     })
     .catch((error) => res.status(500).json({ error }));
@@ -84,9 +84,8 @@ app.post('/api/v1/stars', (req, res) => {
 app.delete('/api/v1/:table/:id', (req, res) => {
   const { table, id } = req.params;
   database(table).where('id', id).select()
+    .del()
     .then(result => {
-      !result.length ? res.status(404).json(`Nothing found for ${id} in ${table}.`)
-        : result.del()
-        .then(() => res.sendStatus(204));
-    });
+      !result ? res.status(404).json(`Nothing found for ${id} in ${table}.`) : res.status(200).json('Successfully deleted.') })
+    .catch(error => res.status(500).json({ error }));
 });
