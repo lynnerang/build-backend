@@ -86,7 +86,7 @@ app.delete('/api/v1/:table/:id', (req, res) => {
   database(table).where('id', id).select()
     .then(result => {
       !result.length ? res.status(404).json(`Nothing found for ${id} in ${table}.`)
-        : query.del()
+        : result.del()
         .then(() => res.sendStatus(204));
     });
 });
