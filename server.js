@@ -55,8 +55,7 @@ app.post('/api/v1/constellations', (req, res) => {
   for (let requiredParameter of ['name', 'mythology', 'first_appeared', 'genitive_form']) {
     if (!constellation[requiredParameter]) {
       return res
-        .status(422)
-        .send({ error: `Expected format: { name: <String>, mythology: <String>, first_appeared: <String>, genitive_form: <String> }. You're missing a "${requiredParameter}" property.` });
+        .status(422).json({ error: `Expected format: { name: <String>, mythology: <String>, first_appeared: <String>, genitive_form: <String> }. You're missing a "${requiredParameter}" property.` });
     }
   }
 
@@ -71,8 +70,7 @@ app.post('/api/v1/stars', (req, res) => {
   for (let requiredParameter of ['name', 'constellation_id', 'link', 'magnitude']) {
     if (!star[requiredParameter]) {
       return res
-        .status(422)
-        .send({ error: `Expected format: { name: <String>, constellation_id: <Number>, link: <String>, magnitude: <String> }. You're missing a "${requiredParameter}" property.` });
+        .status(422).json({ error: `Expected format: { name: <String>, constellation_id: <Number>, link: <String>, magnitude: <String> }. You're missing a "${requiredParameter}" property.` });
     }
   }
 
@@ -83,9 +81,13 @@ app.post('/api/v1/stars', (req, res) => {
 
 app.delete('/api/v1/:table/:id', (req, res) => {
   const { table, id } = req.params;
+
   database(table).where('id', id).select()
     .del()
     .then(result => {
-      !result ? res.status(404).json(`Nothing found for ${id} in ${table}.`) : res.status(200).json('Successfully deleted.') })
+      console.log(result)
+      !result ? res.status(404).json(`Nothing found for ${id} in ${table}.`)
+        : res.status(200).json('Successfully deleted.')
+    })
     .catch(error => res.status(500).json({ error }));
 });
