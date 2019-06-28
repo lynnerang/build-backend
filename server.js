@@ -4,12 +4,12 @@ const database = require('knex')(configuration);
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = 3000;
 
+app.set('port', proces.env.PORT || 3000);
 app.use(express.json());
 app.use(cors());
 
-app.listen(3000, () => {
+app.listen(app.get('port'), () => {
 	console.log(`App is running on port ${port}`);
 });
 
