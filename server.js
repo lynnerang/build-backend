@@ -6,7 +6,7 @@ const database = require('knex')(configuration);
 const cors = require('cors');
 
 
-app.set('port', proces.env.PORT || 3000);
+app.set('port', process.env.PORT || 3000);
 app.use(express.json());
 app.use(cors());
 
