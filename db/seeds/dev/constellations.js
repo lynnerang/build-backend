@@ -1,26 +1,12 @@
 const data = require('../../../data/cleaner');
 
-// const createBright = (knex, conID, bright) => knex('brightest_stars').insert({
-//   name: bright.name,
-//   object_type: bright.object_type,
-//   constellation_id: conID,
-//   magnitude: bright_magnitude,
-//   bv_color: bright.bv_color,
-//   right_ascension: bright.right_ascension,
-//   declination: bright.decliantion,
-//   distance: bright.distance,
-//   proper_motion_spd: bright.proper_motion_spd,
-//   proper_motion_pos: bright.proper_motion_pos,
-//   absolute_mag: bright.absolute_mag
-// }, 'id');
-
-
 const createCon = (knex, constellation) => {
   return knex('constellations').insert({
     name: constellation.name,
     mythology: constellation.mythology,
     first_appeared: constellation.first_appeared,
-    genitive_form: constellation.genitive_form
+    genitive_form: constellation.genitive_form,
+    brightest_star: constellation.brightest_star
   }, 'id')
     .then(constellationID => {
       let starPromises = [];
@@ -33,10 +19,6 @@ const createCon = (knex, constellation) => {
         }, 'id')
         )
       })
-
-      // const bright = data.brightData.find(i => i.constellation === constellation.name);
-
-      // createBright(knex, constellationID[0], bright);
 
       return Promise.all(starPromises);
     })

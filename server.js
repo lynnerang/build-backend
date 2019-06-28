@@ -25,8 +25,12 @@ app.get('/api/v1/constellations', (req, res) => {
 app.get('/api/v1/constellations/:id', (req, res) => {
   database('constellations').where('id', req.params.id).select()
     .then((constellations) => {
-      constellations.length ? res.status(200).json(constellations)
-        : res.status(404).json({ error: 'No constellation data exists for that id.' })
+      console.log(constellations)
+      if (constellations.length) {
+        res.status(200).json(constellations)
+      } else {
+        res.status(404).json({ error: 'No constellation data exists for that id.' })
+      }
     })
     .catch((error) => res.status(500).json({ error }));
 });
@@ -41,6 +45,7 @@ app.get('/api/v1/stars', (req, res) => {
 });
 
 app.get('/api/v1/stars/:id', (req, res) => {
+  console.log(typeof req.params.id)
   database('stars').where('id', req.params.id).select()
     .then((stars) => {
       stars.length ? res.status(200).json(stars)
