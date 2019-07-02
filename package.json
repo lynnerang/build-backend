@@ -1,22 +1,23 @@
 {
-  "name": "byob",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "knex": "^0.18.0",
-    "nightmare": "^3.0.2",
-    "nodemon": "^1.19.1",
-    "pg": "^7.11.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "start": "node server.js",
-    "test": "jest --watchAll"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+	"name": "byob",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^4.17.1",
+		"knex": "^0.18.0",
+		"nightmare": "^3.0.2",
+		"nodemon": "^1.19.1",
+		"pg": "^7.11.0"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"start": "node server.js",
+		"test:watch": "jest --watchAll",
+		"test": "jest --forceExit"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
 }
